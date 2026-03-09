@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>AgriDoot – NGO Dashboard</title>
+    <title>AgriDoot – FPO Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex,nofollow" />
     <link rel="icon" href="/agridootfavicon.ico" />
@@ -274,7 +274,7 @@
         />
 
         <div>
-          <h1 style="margin: 0">AgriDoot – NGO Dashboard</h1>
+          <h1 style="margin: 0">AgriDoot – FPO Dashboard</h1>
           <p style="margin: 4px 0 0">
             One Integrated Dashboard for all your analytics
           </p>
@@ -444,7 +444,13 @@
 
         const res = await fetch(
           "https://api.novosedge.xyz:4433/gis/party/signin",
-          { method: "POST", body: fd }
+          {
+            method: "POST",
+            body: fd,
+            headers: {
+              "x-api-key": "agridoot_2307e123cefd632b33b4ce9ff9bef7db",
+            },
+          },
         );
         const data = await res.json();
 
@@ -493,7 +499,7 @@
           type: "doughnut",
           data: {
             labels: data.cntData.crop_user_counts.map(
-              (x) => x.crop_name || "Unknown"
+              (x) => x.crop_name || "Unknown",
             ),
             datasets: [
               {
@@ -554,7 +560,11 @@
         if (selectedFpo) url += `&fpo_type=${selectedFpo}`;
         if (searchQuery) url += `&search=${encodeURIComponent(searchQuery)}`;
 
-        const res = await fetch(url);
+        const res = await fetch(url, {
+          headers: {
+            "x-api-key": "agridoot_2307e123cefd632b33b4ce9ff9bef7db",
+          },
+        });
         const data = await res.json();
         if (!data.response_status) return;
 
